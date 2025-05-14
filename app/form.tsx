@@ -47,6 +47,7 @@ export default function Form() {
               required
               className="w-full"
               type="file"
+							accept=".pdf"
               id="file"
               name="file"
               onChange={handleFileChange}
