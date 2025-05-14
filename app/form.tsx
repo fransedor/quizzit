@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import UploadedFile from "./uploadedFile";
+import { generateQuiz } from "@/actions/generateQuiz";
 
 export default function Form() {
   const [file, setFile] = useState<File | null>(null);
@@ -34,7 +35,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form action={generateQuiz} className="flex flex-col gap-4">
       <div className="flex items-center gap-6 w-full">
         <span className="rounded-full border-2 h-8 w-8 border-black grid place-content-center shrink-0">
           1
@@ -42,11 +43,14 @@ export default function Form() {
         <div className="flex flex-col w-full">
           <span>Upload PDF:</span>
           <div className="flex gap-4 items-center w-full">
-            {file ? (
-              <UploadedFile file={file} onDelete={() => setFile(null)} />
-            ) : (
-              <Input required className="w-full" type="file" id="file" onChange={handleFileChange} />
-            )}
+            <Input
+              required
+              className="w-full"
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleFileChange}
+            />
           </div>
         </div>
       </div>
@@ -56,7 +60,14 @@ export default function Form() {
         </span>
         <div className="flex flex-col w-full">
           <label htmlFor="topic">Quiz Topic:</label>
-          <Input required className="w-full" type="text" id="topic" onChange={handleTopicChange} />
+          <Input
+            required
+            className="w-full"
+            type="text"
+            id="topic"
+            name="topic"
+            onChange={handleTopicChange}
+          />
         </div>
       </div>
       <div className="flex items-center gap-6 w-full">
@@ -64,8 +75,15 @@ export default function Form() {
           3
         </span>
         <div className="flex flex-col w-full">
-          <label htmlFor="questionAmount">How many questions:</label>
-          <Input required className="w-full" type="number" id="questionAmount" onChange={handleAmountChange} />
+          <label htmlFor="amount">How many questions:</label>
+          <Input
+            required
+            className="w-full"
+            type="number"
+            id="amount"
+            name="amount"
+            onChange={handleAmountChange}
+          />
         </div>
       </div>
 
