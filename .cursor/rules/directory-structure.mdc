@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: directory structure to follow
+globs: 
+alwaysApply: false
+---
+---
+description: the top-level directory structure for the project
+globs: 
+alwaysApply: false
+---     
+# Directory Structure
+```mermaid
+flowchart TD
+    Root[Project Root]
+    Root --> Docs[docs/]
+    Root --> Tasks[tasks/]
+    Root --> Cursor[.cursor/rules/]
+    Root --> CLINE[.clinerules]
+    Root --> PagesAndFeatures[app/]
+    Root --> ServerActions[actions/]
+    Root --> components[components/]
+    Root --> lib[lib/]
+    Root --> Test[test/]
+    Root --> Config[config/]
+    Root --> Data[data/]
+    Root --> Other[Other Directories]
+```

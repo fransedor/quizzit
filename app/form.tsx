@@ -1,41 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import UploadedFile from "./uploadedFile";
 import { generateQuiz } from "@/actions/generateQuiz";
 
 export default function Form() {
-  const [file, setFile] = useState<File | null>(null);
-  const [topic, setTopic] = useState<string>("");
-  const [amount, setAmount] = useState<number>(5);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      setFile(event.target.files[0]);
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const result = await generateQuiz(formData);
+      console.log(result);
+    } catch (error) {
+      console.error("Error", error);
     }
   };
-
-  const handleTopicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTopic(event.target.value);
-  };
-
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(parseInt(event.target.value));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const submittedData = {
-      file,
-      topic,
-      amount,
-    };
-    console.log(submittedData);
-  };
-
   return (
-    <form action={generateQuiz} className="flex flex-col gap-4">
+    <form action={handleSubmit} className="flex flex-col gap-4">
       <div className="flex items-center gap-6 w-full">
         <span className="rounded-full border-2 h-8 w-8 border-black grid place-content-center shrink-0">
           1
@@ -43,15 +21,7 @@ export default function Form() {
         <div className="flex flex-col w-full">
           <span>Upload PDF:</span>
           <div className="flex gap-4 items-center w-full">
-            <Input
-              required
-              className="w-full"
-              type="file"
-							accept=".pdf"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
-            />
+            <Input required className="w-full" type="file" accept=".pdf" id="file" name="file" />
           </div>
         </div>
       </div>
@@ -61,14 +31,7 @@ export default function Form() {
         </span>
         <div className="flex flex-col w-full">
           <label htmlFor="topic">Quiz Topic:</label>
-          <Input
-            required
-            className="w-full"
-            type="text"
-            id="topic"
-            name="topic"
-            onChange={handleTopicChange}
-          />
+          <Input required className="w-full" type="text" id="topic" name="topic" />
         </div>
       </div>
       <div className="flex items-center gap-6 w-full">
@@ -77,14 +40,7 @@ export default function Form() {
         </span>
         <div className="flex flex-col w-full">
           <label htmlFor="amount">How many questions:</label>
-          <Input
-            required
-            className="w-full"
-            type="number"
-            id="amount"
-            name="amount"
-            onChange={handleAmountChange}
-          />
+          <Input required className="w-full" type="number" id="amount" name="amount" />
         </div>
       </div>
 
